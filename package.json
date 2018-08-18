@@ -1,0 +1,20 @@
+{
+  "name": "kirimuang-service",
+  "version": "1.0.0",
+  "main": "server.ts",
+  "author": "Alex Nico Napitupulu",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/es6-shim": "^0.31.37",
+    "@types/express": "^4.16.0",
+    "express": "^4.16.3",
+    "typescript": "^3.0.1"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "build": "tsc",
+    "postinstall": "yarn build",
+    "start": "node build/server.js"
+  }
+}
