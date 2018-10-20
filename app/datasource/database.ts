@@ -91,19 +91,39 @@ const Transaction = db.define('transaction', {
   fee: {
     type: Sequelize.FLOAT,
   },
+  notes: {
+    type: Sequelize.STRING,
+  },
 });
 
-db.sync().then(() => {
-// db.sync({ force: true }).then(() => {
-  console.log('Successfully syncing databse');
+const CurrencyRate = db.define('currency-rate', {
+  usdToIdr: {
+    type: Sequelize.FLOAT,
+  },
+  usdToIdrRounded: {
+    type: Sequelize.FLOAT,
+  },
+  idrToUsd: {
+    type: Sequelize.FLOAT,
+  },
+  idrToUsdRounded: {
+    type: Sequelize.FLOAT,
+  },
+});
 
-}).catch(error => {
-  console.error('Error syncing database: ', error);
-})
+function syncDatabase() {
+  db.sync().then(() => {
+  // db.sync({ force: true }).then(() => {
+    console.log('Successfully syncing databse');
 
+  }).catch(error => {
+    console.error('Error syncing database: ', error);
+  })
+}
 
 export default db;
 export {
   Account,
   Transaction,
+  CurrencyRate,
 };

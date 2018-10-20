@@ -5,7 +5,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
 // Import WelcomeController from controllers entry point
-import {AccountController, TransactionController} from './app/controllers';
+import {AccountController, TransactionController, RateController} from './app/controllers';
 
 import db, {Account} from './app/datasource/database';
 
@@ -20,6 +20,7 @@ const port: number = +(process.env.PORT || 3000);
 // Mount the WelcomeController at the /welcome route
 app.use('/account', AccountController);
 app.use('/transaction', TransactionController);
+app.use('/rate', RateController);
 
 // Serve the application at the given port
 app.listen(port, () => {
