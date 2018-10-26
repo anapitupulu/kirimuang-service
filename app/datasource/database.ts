@@ -1,3 +1,4 @@
+import * as bcryptjs from 'bcryptjs';
 import * as Sequelize from 'sequelize';
 
 const DATABASE_URL = process.env.CLEARDB_DATABASE_URL || '';
@@ -111,6 +112,30 @@ const CurrencyRate = db.define('currency-rate', {
   },
 });
 
+const User = db.define('user', {
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+}, {
+  hooks: {
+    beforeCreate: (user: any) => {
+      user.password = bcryptjs.hashSync(user.password,13);
+    }
+  },
+})
+
+interface IPrototype { prototype: any; }
+
+(User as any).prototype.validPassword = function(password: string) {
+  return bcryptjs.compareSync(password, this.password);
+};
+
 function syncDatabase() {
   db.sync().then(() => {
   // db.sync({ force: true }).then(() => {
@@ -126,4 +151,5 @@ export {
   Account,
   Transaction,
   CurrencyRate,
+  User,
 };
