@@ -40,5 +40,24 @@ router.post('/', (req: Request, res: Response, next: Function) => {
   });
 });
 
+router.put('/', async (req: Request, res: Response, next: Function) => {
+  const params = req.body;
+
+  let acct: any | null = await Account.findById(params.id);
+  if (acct) {
+    acct = await acct.update({
+      name: params.name,
+      bank: params.bank,
+      accountNumber: params.accountNumber,
+      branch: params.branch,
+      location: params.location,
+      phone: params.phone,
+    });
+    res.json(acct);
+  } else {
+    res.status(500).send('Account is not found');
+  }
+});
+
 // Export the express.Router() instance to be used by server.ts
 export const AccountController: Router = router;
