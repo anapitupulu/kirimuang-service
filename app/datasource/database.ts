@@ -32,6 +32,7 @@ const Account = db.define('account', {
   },
   branch: {
     type: Sequelize.STRING,
+    allowNull: true,
     validate: {
       isAlphanumeric: true,
     }
@@ -45,6 +46,7 @@ const Account = db.define('account', {
   },
   phone: {
     type: Sequelize.STRING,
+    allowNull: true,
     validate: {
       isAlphanumeric: true,
     }
