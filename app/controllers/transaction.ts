@@ -40,21 +40,45 @@ router.get('/', asyncMiddleware(async (req: Request, res: Response, next: Functi
 }));
 
 router.post('/', asyncMiddleware(async (req: Request, res: Response, next: Function) => {
-  // Extract the name from the request parameters
   const params = req.body;
 
   const transaction: any = Transaction.create({
     senderId: params.senderId,
     receiverId: params.receiverId,
-    usDollarAmount: params.usDollarAmount,
-    idrDollarAmount: params.idrDollarAmount,
+    usdAmount: params.usdAmount,
+    idrAmount: params.idrAmount,
     rate: params.rate,
     transferred: false,
     paid: false,
-    fee: params.fee,
+    usdFee: params.usdFee,
+    idrFee: params.idrFee,
+    notes: params.notes,
   });
   res.json(transaction);
 }));
+
+router.put('/', async (req: Request, res: Response, next: Function) => {
+  const params = req.body;
+
+  let tsct: any | null = await Transaction.findById(params.id);
+  if (tsct) {
+    tsct = await tsct.update({
+      senderId: params.senderId,
+      receiverId: params.receiverId,
+      usdAmount: params.usdAmount,
+      idrAmount: params.idrAmount,
+      rate: params.rate,
+      transferred: params.transferred,
+      paid: params.paid,
+      usdFee: params.usdFee,
+      idrFee: params.idrFee,
+      notes: params.notes,
+    });
+    res.json(tsct);
+  } else {
+    res.status(500).send('Account is not found');
+  }
+})
 
 // Export the express.Router() instance to be used by server.ts
 export const TransactionController: Router = router;

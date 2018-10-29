@@ -74,10 +74,10 @@ const Transaction = db.define('transaction', {
       key: 'id',
     },
   },
-  usDollarAmount: {
+  usdAmount: {
     type:  Sequelize.FLOAT,
   },
-  idrDollarAmount: {
+  idrAmount: {
     type:  Sequelize.FLOAT,
   },
   rate: {
@@ -91,7 +91,10 @@ const Transaction = db.define('transaction', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-  fee: {
+  usdFee: {
+    type: Sequelize.FLOAT,
+  },
+  idrFee: {
     type: Sequelize.FLOAT,
   },
   notes: {
