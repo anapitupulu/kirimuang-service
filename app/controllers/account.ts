@@ -2,6 +2,7 @@
 import db, {Account} from '../datasource/database';
 import { Router, Request, Response } from 'express';
 import * as Sequelize from 'sequelize';
+import * as _ from 'lodash';
 
 // Assign router to the express.Router() instance
 const router: Router = Router();
@@ -22,7 +23,8 @@ router.get('/', (req: Request, res: Response) => {
 
 router.post('/', (req: Request, res: Response, next: Function) => {
   // Extract the name from the request parameters
-  const params = req.body;
+  let params = req.body;
+  params = _.map(params, (val: any) => val !== "" ? val : null);
 
   Account.create({
     name: params.name,

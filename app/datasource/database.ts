@@ -14,18 +14,17 @@ const Account = db.define('account', {
   },
   name: {
     type: Sequelize.STRING,
-    validate: {
-      isAlphanumeric: true,
-    }
   },
   bank: {
     type: Sequelize.STRING,
+    allowNull: true,
     validate: {
       isAlphanumeric: true,
     },
   },
   accountNumber: {
     type: Sequelize.STRING,
+    allowNull: true,
     validate: {
       isAlphanumeric: true,
     },
@@ -35,7 +34,7 @@ const Account = db.define('account', {
     allowNull: true,
     validate: {
       isAlphanumeric: true,
-    }
+    },
   },
   location: {
     type: Sequelize.STRING,
@@ -49,7 +48,7 @@ const Account = db.define('account', {
     allowNull: true,
     validate: {
       isAlphanumeric: true,
-    }
+    },
   },
 });
 
