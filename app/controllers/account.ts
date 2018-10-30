@@ -22,9 +22,11 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.post('/', (req: Request, res: Response, next: Function) => {
-  // Extract the name from the request parameters
   let params = req.body;
-  params = _.map(params, (val: any) => val !== "" ? val : null);
+  params = _.reduce(params, (result: any, val: any, key: string) => {
+   result[key] = val !== "" ? val : null;
+   return result;
+  }, {});
 
   Account.create({
     name: params.name,
@@ -44,7 +46,10 @@ router.post('/', (req: Request, res: Response, next: Function) => {
 
 router.put('/', async (req: Request, res: Response, next: Function) => {
   let params = req.body;
-  params = _.map(params, (val: any) => val !== "" ? val : null);
+  params = _.reduce(params, (result: any, val: any, key: string) => {
+   result[key] = val !== "" ? val : null;
+   return result;
+  }, {});
 
   let acct: any | null = await Account.findById(params.id);
   if (acct) {
