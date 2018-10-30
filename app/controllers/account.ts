@@ -43,7 +43,8 @@ router.post('/', (req: Request, res: Response, next: Function) => {
 });
 
 router.put('/', async (req: Request, res: Response, next: Function) => {
-  const params = req.body;
+  let params = req.body;
+  params = _.map(params, (val: any) => val !== "" ? val : null);
 
   let acct: any | null = await Account.findById(params.id);
   if (acct) {
