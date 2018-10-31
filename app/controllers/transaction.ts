@@ -10,10 +10,12 @@ const router: Router = Router();
 
 const Op = Sequelize.Op;
 
+const ALL_TRANSACTIONS_SQL = 'select transactions.id, transactions.senderId, transactions.receiverId, sender.name AS senderName, receiver.name as receiverName, usdAmount, idrAmount, rate, transferred, paid, usdFee, idrFee, notes, transactions.createdAt, transactions.updatedAt from transactions inner join accounts sender on transactions.senderId=sender.id inner join accounts receiver on transactions.receiverId=receiver.id';
+
 router.get('/', asyncMiddleware(async (req: Request, res: Response, next: Function) => {
   let transactions: any[] = [];
   if (!req.query.name) {
-    transactions = await Transaction.all();
+    transactions = await db.query(ALL_TRANSACTIONS_SQL, { type: db.QueryTypes.SELECT });
     res.json(transactions);
     return;
   } 

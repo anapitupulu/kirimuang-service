@@ -134,6 +134,10 @@ interface IPrototype { prototype: any; }
   return bcryptjs.compareSync(password, this.password);
 };
 
+Account.hasOne(Transaction, {as: 'Sender', foreignKey: 'senderId'});
+Account.hasOne(Transaction, {as: 'Receiver', foreignKey: 'receiverId'});
+Transaction.belongsTo(Account, {foreignKey: 'id'});
+
 function syncDatabase() {
   db.sync().then(() => {
   // db.sync({ force: true }).then(() => {
