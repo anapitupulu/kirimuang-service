@@ -10,7 +10,26 @@ const router: Router = Router();
 
 const Op = Sequelize.Op;
 
-const ALL_TRANSACTIONS_SQL = 'select transactions.id, transactions.senderId, transactions.receiverId, sender.name AS senderName, receiver.name as receiverName, usdAmount, idrAmount, rate, transferred, paid, usdFee, idrFee, notes, transactions.createdAt, transactions.updatedAt from transactions inner join accounts sender on transactions.senderId=sender.id inner join accounts receiver on transactions.receiverId=receiver.id';
+const ALL_TRANSACTIONS_SQL = 
+  `select transactions.id,
+  transactions.senderId,
+  transactions.receiverId,
+  sender.name AS senderName,
+  receiver.name as receiverName,
+  receiver.bank as receiverBank,
+  receiver.branch as receiverBranch,
+  receiver.accountNumber as receiverAccountNumber,
+  usdAmount,
+  idrAmount,
+  rate,
+  transferred,
+  paid,
+  usdFee,
+  idrFee,
+  notes,
+  transactions.createdAt,
+  transactions.updatedAt
+  from transactions inner join accounts sender on transactions.senderId=sender.id inner join accounts receiver on transactions.receiverId=receiver.id`;
 
 router.get('/', asyncMiddleware(async (req: Request, res: Response, next: Function) => {
   let transactions: any[] = [];
