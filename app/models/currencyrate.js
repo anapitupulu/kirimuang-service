@@ -1,10 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const CurrencyRate = sequelize.define('CurrencyRate', {
-    usdToIdr: DataTypes.FLOAT,
-    usdToIdrRounded: DataTypes.FLOAT,
-    idrToUsd: DataTypes.FLOAT,
-    idrToUsdRounded: DataTypes.FLOAT
+    usdToIdr: {
+      type: Sequelize.FLOAT,
+    },
+    usdToIdrRounded: {
+      type: Sequelize.FLOAT,
+    },
+    idrToUsd: {
+      type: Sequelize.FLOAT,
+    },
+    idrToUsdRounded: {
+      type: Sequelize.FLOAT,
+    },
   }, {});
   CurrencyRate.associate = function(models) {
     // associations can be defined here
