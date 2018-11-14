@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "acmilan3",
+    "database": "kirimuang_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "acmilan3",
+    "database": "kirimuang_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "b911059216a8cd",
+    "password": "46bdcf0a",
+    "database": "heroku_896683aa6afe2fd",
+    "host": "heroku_896683aa6afe2fd",
+    "dialect": "mysql"
+  }
+}
