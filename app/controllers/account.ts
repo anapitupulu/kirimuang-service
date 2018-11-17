@@ -1,5 +1,6 @@
 // Import only what we need from express
-import db, {Account} from '../datasource/database';
+import db from '../datasource/database';
+import Account from '../models/account';
 import { Router, Request, Response } from 'express';
 import * as Sequelize from 'sequelize';
 import * as _ from 'lodash';

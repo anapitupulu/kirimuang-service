@@ -1,5 +1,6 @@
 // Import only what we need from express
-import db, {CurrencyRate} from '../datasource/database';
+import db from '../datasource/database';
+import CurrencyRate from '../models/currencyrate'
 import { Router, Request, Response } from 'express';
 
 const router: Router = Router();

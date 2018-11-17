@@ -1,6 +1,8 @@
 // Import only what we need from express
 import {asyncMiddleware} from '../../utils/async-middleware';
-import db, {Account, Transaction} from '../datasource/database';
+import db from '../datasource/database';
+import Account from '../models/account';
+import Transaction from '../models/transaction';
 import { Router, Request, Response } from 'express';
 import * as Sequelize from 'sequelize';
 import * as _ from 'lodash';

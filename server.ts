@@ -5,11 +5,14 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
+import {Model} from 'sequelize-typescript';
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 import {AccountController, TransactionController, RateController} from './app/controllers';
 
-import db, {Account, User} from './app/datasource/database';
+import db from './app/datasource/database';
+import Account from './app/models/account';
+import User from './app/models/user';
 
 const app: express.Application = express();
 
@@ -36,7 +39,7 @@ app.route('/authenticate')
     const email: string = req.body.email;
     const password: string = req.body.password;
 
-    User.findOne({where: {email}}).then((user) => {
+    User.findOne({where: {email}}).then((user: User | null) => {
       if (!user) {
         res.status(500).send('User is not found');
       } else if (!user.validPassword(password)) {

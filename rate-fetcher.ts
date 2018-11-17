@@ -1,5 +1,5 @@
 var oxr = require('open-exchange-rates');
-import {CurrencyRate} from './app/datasource/database'
+import CurrencyRate from './app/models/currencyrate'
 oxr.set({ app_id: process.env.OPENEXCHANGE_APP_ID});
 oxr.latest(() => {
   const rate: any = CurrencyRate.create({
