@@ -1,5 +1,13 @@
 var oxr = require('open-exchange-rates');
 import CurrencyRate from './app/models/currencyrate'
+import {Sequelize} from 'sequelize-typescript';
+
+const DATABASE_URL = process.env.CLEARDB_DATABASE_URL || '';
+const db = new Sequelize({
+  url: DATABASE_URL,
+  modelPaths: [__dirname + '/app/models']
+}); 
+
 oxr.set({ app_id: process.env.OPENEXCHANGE_APP_ID});
 oxr.latest(() => {
   const rate: any = CurrencyRate.create({

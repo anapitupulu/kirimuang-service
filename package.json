@@ -32,6 +32,7 @@
     "tsc": "tsc",
     "build": "tsc",
     "postinstall": "yarn build",
+    "watch": "nodemon --exec \"heroku local\" --signal SIGTERM",
     "start": "node build/server.js"
   },
   "devDependencies": {
