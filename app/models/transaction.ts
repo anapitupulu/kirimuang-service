@@ -16,9 +16,27 @@ import {
   CreatedAt,
   UpdatedAt,
   DeletedAt,
+  DefaultScope,
+  Scopes,
 } from 'sequelize-typescript';
+import {Op} from 'sequelize';
 import Account from './account';
 
+@DefaultScope({
+  include: [
+    { model: () => Account, as: 'sender', },
+    { model: () => Account, as: 'receiver', },
+  ]
+})
+@Scopes({
+  open: () => {
+    return {
+      where: {
+        [Op.or]: [{transferred: false}, {paid: false}],
+      },
+    };
+  }
+})
 @Table({tableName: 'transactions'})
 export default class Transaction extends Model<Transaction> {
   

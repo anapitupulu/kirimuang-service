@@ -11,17 +11,11 @@ import * as _ from 'lodash';
 // Assign router to the express.Router() instance
 const router: Router = Router();
 const Op = Sequelize.Op;
-const associateWithAccount = [
-  { model: Account, as: 'sender', },
-  { model: Account, as: 'receiver', },
-]
 
 router.get('/', asyncMiddleware(async (req: Request, res: Response, next: Function) => {
   let transactions: any[] = [];
   if (!req.query.name) {
-    transactions = await Transaction.findAll({
-      include: associateWithAccount,
-    });
+    transactions = await Transaction.scope('defaultScope', 'open').findAll();
   } else {
     const accounts: any[] = await Account.findAll({
       attributes:['id'],
@@ -63,7 +57,6 @@ router.post('/', asyncMiddleware(async (req: Request, res: Response, next: Funct
 
   const newTransaction = await Transaction.findOne({
     where: {id: transaction.id},
-    include: associateWithAccount,
   })
 
   res.json(newTransaction);
